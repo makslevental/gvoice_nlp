@@ -1,0 +1,7 @@
+[package]
+name = "gvoice_nlp"
+version = "0.1.0"
+authors = ["max <maksim.levental@gmail.com>"]
+
+[dependencies]
+select = "0.4.2"
