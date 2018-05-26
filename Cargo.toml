@@ -5,3 +5,6 @@ authors = ["max <maksim.levental@gmail.com>"]
 
 [dependencies]
 select = "0.4.2"
+serde_json = "1.0.17"
+serde = "1.0.60"
+serde_derive = "1.0.60"
