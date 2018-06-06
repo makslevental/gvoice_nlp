@@ -25,11 +25,12 @@ struct Message {
 }
 
 fn main() -> std::io::Result<()> {
-    let mut messages: Vec<Message> = Vec::new();
+    let mut conversations: Vec<Vec<Message>> = Vec::new();
 
     println!("The current directory is {}", env!("PWD"));
     let paths = fs::read_dir("/Users/max/dev_projects/gvoice_nlp/Takeout").unwrap();
     for path in paths {
+        let mut messages: Vec<Message> = Vec::new();
         let path_str = path.unwrap().path().display().to_string();
 //        if path_str.contains("Text") {
 //            let ww: Vec<_> = path_str.split_whitespace().collect();
@@ -58,11 +59,13 @@ fn main() -> std::io::Result<()> {
             };
             messages.push(msg);
         }
-    }
-    messages.sort_by(|a, b| a.time.cmp(&b.time));
-    let j = serde_json::to_string(&messages)?;
+        conversations.push(messages)
 
-    fs::write("/Users/max/dev_projects/gvoice_nlp/messages.json", j).expect("Unable to write file");
+    }
+    conversations.sort_by(|a, b| a[0].time.cmp(&b[0].time));
+    let j = serde_json::to_string(&conversations)?;
+
+    fs::write("/Users/max/dev_projects/gvoice_nlp/conversations.json", j).expect("Unable to write file");
 
     Ok(())
 }
